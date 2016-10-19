@@ -4,6 +4,7 @@ import os
 import pickle
 import re
 import sys
+import string
 
 sys.path.append( "../tools/" )
 from parse_out_email_text import parseOutText
@@ -48,18 +49,26 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
-
+            email_stemmed = parseOutText(email)
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-
+            string.replace(email_stemmed, "sara","")
+            string.replace(email_stemmed,'shackleton','')
+            string.replace(email_stemmed,'chris','')
+            string.replace(email_stemmed,'germani','')
             ### append the text to word_data
-
+            word_data.append(email_stemmed)
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-
+            if name == 'sara':
+                from_data.append(0)
+            if name == "chris":
+                from_data.append(1)
 
             email.close()
 
 print "emails processed"
+print "word_data[152] =", word_data[152]
+
 from_sara.close()
 from_chris.close()
 
@@ -69,7 +78,5 @@ pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 
 
-
 ### in Part 4, do TfIdf vectorization here
-
 
