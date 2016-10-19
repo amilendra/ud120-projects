@@ -102,3 +102,8 @@ try:
     Draw(pred, finance_features, poi, mark_poi=False, name="clusters_with_total_payments.pdf", f1_name=feature_1, f2_name=feature_2)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
+
+features_list = [feature_2]
+exercised_stock_options = featureFormat(data_dict, features_list, remove_NaN=True, remove_any_zeroes=True  )
+print "min exercised_stock_options", min(targetFeatureSplit(exercised_stock_options)[0])
+print "max exercised_stock_options", max(targetFeatureSplit(exercised_stock_options)[0])
