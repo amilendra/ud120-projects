@@ -85,3 +85,4 @@ sklearn_tfidf = TfidfVectorizer(analyzer='word',stop_words='english')
 sklearn_representation = sklearn_tfidf.fit(word_data)
 without_stopwords = sklearn_tfidf.get_feature_names()
 print len(set(without_stopwords))
+print without_stopwords[ 34597 ] 
