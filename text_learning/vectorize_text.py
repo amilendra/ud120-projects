@@ -42,7 +42,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
-        temp_counter += 1
+#        temp_counter += 1
         if temp_counter < 200:
             path = os.path.join('..', path[:-1])
             print path
@@ -52,10 +52,10 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email_stemmed = parseOutText(email)
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-            string.replace(email_stemmed, "sara","")
-            string.replace(email_stemmed,'shackleton','')
-            string.replace(email_stemmed,'chris','')
-            string.replace(email_stemmed,'germani','')
+            email_stemmed = string.replace(email_stemmed, "sara","")
+            email_stemmed = string.replace(email_stemmed,'shackleton','')
+            email_stemmed = string.replace(email_stemmed,'chris','')
+            email_stemmed = string.replace(email_stemmed,'germani','')
             ### append the text to word_data
             word_data.append(email_stemmed)
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
@@ -79,4 +79,9 @@ pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 
 ### in Part 4, do TfIdf vectorization here
+from sklearn.feature_extraction.text import TfidfVectorizer
 
+sklearn_tfidf = TfidfVectorizer(analyzer='word',stop_words='english')
+sklearn_representation = sklearn_tfidf.fit(word_data)
+without_stopwords = sklearn_tfidf.get_feature_names()
+print len(set(without_stopwords))
